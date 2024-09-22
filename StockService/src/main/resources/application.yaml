@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: stock-service
+  datasource:
+    username: test_db
+    password: test_db
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test_db?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        enabled: true
+        username: nacos
+        password: nacos
+
+server:
+  port: 9005
+  servlet:
+    context-path: /stock
+
+seata:
+  service:
+    vgroup-mapping:
+      default_tx_group: stock-service
+    stock-service:
+      grouplist: 127.0.0.1:8091
+  enabled: true
