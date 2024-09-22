@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: cloud.service.application
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: dev
+        group: DEFAULT_GROUP
+        file-extension: yaml
+        username: nacos
+        password: nacos
+#        enabled: true
