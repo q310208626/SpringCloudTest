@@ -3,6 +3,7 @@ package com.order.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.order.bean.TProduct;
 import com.order.dao.TProductMapper;
+import com.order.service.IRemoteStockService;
 import com.order.service.ITProductService;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class TProductServiceImpl extends ServiceImpl<TProductMapper, TProduct> i
     @Autowired
     private TProductMapper productMapper;
 
+    @Autowired
+    IRemoteStockService remoteStockService;
+
+
     @Override
     public String buyProduct(String productId, int num) {
         restTemplate.getForObject("http://stock-service/stock/reduceProduct?productId=" + productId + "&num=" + num, String.class);
@@ -38,6 +43,15 @@ public class TProductServiceImpl extends ServiceImpl<TProductMapper, TProduct> i
         product.setProductName(productName);
         productMapper.insert(product);
         restTemplate.getForObject("http://stock-service/stock/addProductStock?productId=" + product.getId() + "&num=" + 100, String.class);
+        return "SUCCESS";
+    }
+
+    @Override
+    public String addProductWithFeign(String productName) {
+        TProduct product = new TProduct();
+        product.setProductName(productName);
+        productMapper.insert(product);
+        remoteStockService.addProductStock(product.getId(),101);
         return "SUCCESS";
     }
 

@@ -2,7 +2,6 @@ package com.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.order.bean.TProduct;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 public interface ITProductService extends IService<TProduct> {
     String buyProduct(String productId, int num);
-    String addProduct(@RequestParam("productName") String productName);
-    String addProductWithRemoteException(@RequestParam("productName") String productName);
+    String addProduct(String productName);
+    String addProductWithFeign(String productName);
+    String addProductWithRemoteException(String productName);
 
 }

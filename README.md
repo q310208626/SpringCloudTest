@@ -13,7 +13,7 @@ ConfigService
 
 
 --- 
-### Spring Cloud + Ribbon + Seata + Nacos
+### Spring Cloud + Ribbon + Seata + Nacos + OpenFeign
 - 两个服务件通过Spring Cloud的调用
 - Nacos注册服务信息
 - Ribbon在RestTemplate添加拦截器去nacos上根据服务名获取服务信息
@@ -21,3 +21,7 @@ ConfigService
 
 OrderService  
 StockService
+
+ribbon: com.order.controller.OrderController.addProduct  
+seata: com.order.controller.OrderController.addProductWithException  
+OpenFeign: com.order.controller.OrderController.addProductWithFeign  
