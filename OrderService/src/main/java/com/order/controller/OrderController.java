@@ -37,6 +37,13 @@ public class OrderController implements ApplicationContextAware {
         return response;
     }
 
+    @ResponseBody
+    @GetMapping("/addWithFeign")
+    public String addProductWithFeign(@RequestParam("productName") String productName) {
+        String response = tProductService.addProductWithFeign(productName);
+        return response;
+    }
+
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
