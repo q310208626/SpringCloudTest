@@ -20,6 +20,7 @@
         <module>StockService</module>
         <module>ConfigService</module>
         <module>CloudConfigService</module>
+        <module>TestProject</module>
     </modules>
 
     <properties>
