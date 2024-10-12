@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: gatway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        enabled: true
+        username: nacos
+        password: nacos
+    gateway:
+      routes:
+        - id: order-service
+          uri: lb://order-service
+#          uri: http://localhost:9001/
+          predicates :
+            - Path=/cloudtest/order/**
+          filters:
+              - RewritePath=/cloudtest/(?<segment>.*),/$\{segment}
+        - id: stock-service
+          uri: lb://stock-service
+          predicates:
+              - Path=/cloudtest/stock/**
+          filters:
+              - RewritePath=/cloudtest/(?<segment>.*),/$\{segment}
+
+server:
+  port: 8888
+  servlet:
+    context-path: /cloudtest

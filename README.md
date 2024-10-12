@@ -13,12 +13,14 @@ ConfigService
 
 
 --- 
-### Spring Cloud + Ribbon + Seata + Nacos + OpenFeign
+### Spring Cloud + Ribbon + Seata + Nacos + OpenFeign + Gateway
 - 两个服务件通过Spring Cloud的调用
 - Nacos注册服务信息
 - Ribbon在RestTemplate添加拦截器去nacos上根据服务名获取服务信息
 - seata实现分布式事务
+- Gateway API网关，服务解析，负载均衡
 
+GatewayServer  
 OrderService  
 StockService
 
