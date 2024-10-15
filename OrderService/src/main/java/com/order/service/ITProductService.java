@@ -16,5 +16,5 @@ public interface ITProductService extends IService<TProduct> {
     String addProduct(String productName);
     String addProductWithFeign(String productName);
     String addProductWithRemoteException(String productName);
-
+    TProduct getProduct(String productId);
 }

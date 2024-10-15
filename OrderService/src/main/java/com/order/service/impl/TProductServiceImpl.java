@@ -1,5 +1,6 @@
 package com.order.service.impl;
 
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.order.bean.TProduct;
 import com.order.dao.TProductMapper;
@@ -32,7 +33,7 @@ public class TProductServiceImpl extends ServiceImpl<TProductMapper, TProduct> i
 
     @Override
     public String buyProduct(String productId, int num) {
-        restTemplate.getForObject("http://stock-service/stock/reduceProduct?productId=" + productId + "&num=" + num, String.class);
+        remoteStockService.reduceProduct(productId,num);
         return "SUCCESS";
     }
 
@@ -43,7 +44,7 @@ public class TProductServiceImpl extends ServiceImpl<TProductMapper, TProduct> i
         product.setProductName(productName);
         productMapper.insert(product);
         restTemplate.getForObject("http://stock-service/stock/addProductStock?productId=" + product.getId() + "&num=" + 100, String.class);
-        return "SUCCESS";
+        return String.valueOf(product.getId());
     }
 
     @Override
@@ -63,5 +64,16 @@ public class TProductServiceImpl extends ServiceImpl<TProductMapper, TProduct> i
         productMapper.insert(product);
         restTemplate.getForObject("http://stock-service/stock/addProductStockWithException?productId=" + product.getId() + "&num=" + 100, String.class);
         return "SUCCESS";
+    }
+
+    @Override
+//    @SentinelResource(value = "order", blockHandler = "blockHandler")
+    public TProduct getProduct(String productId) {
+        return productMapper.selectById(productId);
+    }
+
+    public String blockHandler(String productId, BlockException ex) {
+        System.out.println("访问过于频繁，请稍后再试");
+        return "访问过于频繁，请稍后再试";
     }
 }

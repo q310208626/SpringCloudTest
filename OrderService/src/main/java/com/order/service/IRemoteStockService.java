@@ -9,4 +9,7 @@ public interface IRemoteStockService {
 
     @GetMapping("/stock/addProductStock")
     String addProductStock(@RequestParam("productId") int productId, @RequestParam("num") int num);
+
+    @GetMapping("/stock/reduceProduct")
+    String reduceProduct(@RequestParam("productId") String productId, @RequestParam("num") int num);
 }

@@ -8,6 +8,12 @@ spring:
         enabled: true
         username: nacos
         password: nacos
+    sentinel:
+      transport:
+        dashboard: localhost:8889
+        client-ip: 192.168.0.5
+      web-context-unify: false
+
 
   datasource:
     username: test_db
@@ -25,5 +31,7 @@ seata:
       default_tx_group: order-service
     order-service:
       grouplist: 127.0.0.1:8091
-  enabled: true
-
+  enabled: false
+feign:
+  sentinel:
+    enabled: true
