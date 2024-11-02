@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: user-service
+  datasource:
+    username: test_db
+    password: test_db
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test_db?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        enabled: true
+        username: nacos
+        password: nacos
+
+server:
+  port: 9006
+  servlet:
+    context-path: /userservice
+
+seata:
+  service:
+    vgroup-mapping:
+      default_tx_group: user-service
+    user-service:
+      grouplist: 127.0.0.1:8091
+  enabled: false
